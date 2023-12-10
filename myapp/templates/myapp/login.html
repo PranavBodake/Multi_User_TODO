@@ -1,0 +1,43 @@
+{% extends 'myapp/base.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    {% block content %}
+    
+    <div class="col-lg-6 shadow p-3 mx-auto mt-5">
+        <h3 style="text-align: center;">Login to your account</h3>
+
+        <hr><br>
+
+        <div class="form" style="text-align: center;">
+            <form action="" method="POST" autocomplete="off">
+
+                {% csrf_token %}
+    
+                {{form.as_p}}
+    
+                <button type="submit" class="btn btn-primary w-50 btn-block p-2">Login</button>
+    
+            </form>
+        </div>
+
+        <br>
+
+        <div class="text-center">
+            <p>Don't have an account?</p><a href="{% url 'signup' %}">Register</a>
+        </div>
+
+        <br>
+    </div>
+
+    {% endblock content %}
+</body>
+</html>

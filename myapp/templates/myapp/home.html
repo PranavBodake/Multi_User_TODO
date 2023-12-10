@@ -1,0 +1,103 @@
+{% extends 'myapp/base.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+
+    {% block content %}
+
+    <h4 class="welcome p-3 text-center">Glad to See you again {{user}} !!</h4>
+    <div class="container p-4">
+        <div class="row p-3 mt-5">
+            <div class="col-lg-6 shadow  mx-auto p-3">
+                <h3 style="text-align: center;">Add New Task</h3>
+        
+                <hr><br>
+        
+                <form action="add" method="POST" autocomplete="off">
+        
+                    {% csrf_token %}
+        
+                   <p>Task: {{form.title}} </p> 
+        
+                    <br>
+        
+                    <p>Status: {{form.status}}</p>
+        
+                    <br>
+        
+                    <button type="submit" class="btn btn-primary w-100 btn-block p-2">ADD</button>
+        
+                </form> 
+            </div>
+            
+            
+
+            <div class="col">
+
+                {% if todos|length == 0 %}
+
+                <div class="alert alert-info text-center" style="margin-left: 10px;">
+                    <p style="font-size: 30px;">No Todos</p>
+                </div>
+
+                {% else %}
+
+                <table class="table table-hover">
+
+                    <thead class="table-light">
+            
+                        <tr>
+                            <th >ID</th>
+                            <th >TASK</th>
+                            <th >STATUS</th>
+                            
+
+                            <th >ACTION    </th>
+                        </tr>
+            
+                    </thead>
+            
+                    <tbody>
+                       
+            
+                            {% for todo in todos %}
+            
+                        <tr>
+                            <td>{{forloop.counter}} </td>
+                            <td>{{todo.title}} </td>
+                            <td>{{todo.status}} </td>
+                            <td><a class="btn btn-danger btn-sm" href="{% url 'delete' todo.id %}" title="Delete"><i class="fa fa-trash" ></i></a>
+                            
+                            {% if todo.status == 'Pending' %}
+                            <a class="btn btn-success btn-sm" href="/change-status/{{todo.id}}/Completed" title="Mark Completed" style="margin-left: 2px;"><i class="fa fa-check" ></i></a>
+
+                            {% else %}
+                            <a class="btn btn-success btn-sm" href="/change-status/{{todo.id}}/Pending" title="Mark Pending" style="margin-left: 2px;"><i class="fa fa-clock" ></i></a>
+                            </td>
+
+                            {% endif %}
+                            
+                        </tr>
+            
+                            {% endfor %}
+          
+            
+                        {% endif %}
+                    </tbody>
+            
+                </table>
+            
+            </div>
+            
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+</html>

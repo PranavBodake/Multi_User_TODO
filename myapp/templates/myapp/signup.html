@@ -1,0 +1,45 @@
+{% extends 'myapp/base.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+</head>
+<body>
+
+    {% block content %}
+
+    <div class="col-lg-5 shadow p-0 mx-auto mt-5">
+       <div style="text-align: center; font-size: 2rem; padding: 4px;size: 100%;">Create Account</div>
+
+       <div class="p-4">
+        <form action="signup" method="post">
+
+            {% csrf_token %}
+            {{form.as_p}}
+    
+            <br>
+            <button type="submit" class="btn btn-primary w-100 btn-block p-2">Create account</button>
+        </form>
+
+        <br>
+       
+
+        <div class="text-center">
+            <p>Already have an account?</p><a href="{% url 'login' %}">Login</a>
+
+            <br>
+        </div>
+
+       </div>
+    
+    </div>
+    
+    {% endblock content %}
+</body>
+</html>
